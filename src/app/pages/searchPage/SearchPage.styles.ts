@@ -27,7 +27,7 @@ export const Container = styled.div`
       border-radius: 10px;
       height: 100%;
       min-height: 150px;
-      max-width: 800px;
+      width: 660px;
     }
 
     .avatar {
@@ -38,6 +38,20 @@ export const Container = styled.div`
     .avatar-img {
       border-radius: 0 10px 0 50px;
       position: absolute;
+    }
+
+    .marvel-datas-grid {
+      display: grid;
+      grid-auto-rows: 30px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .marvel-datas {
+      justify-self: center;
+    }
+
+    .marvel-datas-results {
+      padding: 10px 0 0 0;
     }
 
     .marvel-description {
@@ -84,6 +98,12 @@ export const Container = styled.div`
       width: 100%;
     }
 
+    .pagination-button {
+      height: 35px;
+      margin-left: 10px;
+      width: 100px;
+    }
+
     .search-button {
       height: 35px;
       margin-left: 10px;
@@ -97,14 +117,6 @@ export const Container = styled.div`
       width: 200px;
     }
 
-    .wrapper {
-      display: grid;
-      grid-auto-rows: 200px;
-      grid-template-columns: repeat(6, 1fr);
-    }
-  }
-
-  @media screen and (max-width: 820px) {
     .wrapper {
       display: grid;
       grid-auto-rows: 200px;
@@ -133,6 +145,20 @@ export const Container = styled.div`
     .avatar-img {
       width: 100%;
       height: 100%;
+    }
+
+    .marvel-datas-grid {
+      display: grid;
+      grid-auto-rows: 30px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .marvel-datas {
+      justify-self: center;
+    }
+
+    .marvel-datas-results {
+      padding: 10px 0 0 0;
     }
 
     .marvel-description {

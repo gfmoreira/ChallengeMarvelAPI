@@ -1,34 +1,53 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Challenge Marvel API
 
-## Getting Started
+A simple website, performed to participate in the challenge [Desafio Frontend Fpass](https://github.com/holding-fpass/challenge-frontend-fpass)
 
-First, run the development server:
+## Concept
+
+The user can query the name or initial of a Marvel character, then a reference image of the character will be displayed with a description, it is observed that some do not have images and/or description.
+
+If the query has been made with a spelling error, a list will be displayed based on the query based on the first letter of the searched name.
+
+## Technologies to be used
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+- Javascript / Typescript
+- Next / React (Typescript)
+- Styled components
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Initial architecture
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+ChallengeMarvelAPI/
+└── src
+	└── app
+		├── components/
+		├── hooks/
+		└── pages/
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+---
 
-## Learn More
+## Installation
 
-To learn more about Next.js, take a look at the following resources:
+-- Clone the repo --
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+    git clone  https://github.com/gfmoreira/ChallengeMarvelAPI.git
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+-- Install NPM packages in the root and client directories --
 
-## Deploy on Vercel
+```bash
+    cd ChallengeMarvelAPI
+    npm install
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+-- Start the application --
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+    npm run dev
+```
+
+-- Then open your browser at the address "http://localhost:3000/" --

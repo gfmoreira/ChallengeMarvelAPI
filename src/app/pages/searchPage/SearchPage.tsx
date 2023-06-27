@@ -16,6 +16,7 @@ export default function SearchPage() {
     loading,
     error,
     cleanList,
+    setOffSet,
   } = useMarvel();
 
   return (
@@ -67,7 +68,7 @@ export default function SearchPage() {
           {!search ? (
             <div>
               <p className="marvel-welcome-title">
-                <b>Welcome to "Marvel Search" !</b>{" "}
+                <b>Welcome to "Marvel Search" !</b>
               </p>
               <p className="marvel-welcome">
                 Here you can search for information about your Hero or Villain
@@ -79,51 +80,118 @@ export default function SearchPage() {
           {characterData ? (
             characterData?.data?.results[0]?.description == "" ? (
               <div>
-                <b>Description: </b>
-                Confidential
+                <p className="marvel-datas">
+                  <b>Description: </b>
+                  Confidential
+                </p>
+                <p>
+                  <b>{`The ${characterData?.data?.results[0]?.name} was involved in:`}</b>
+                  <div className="marvel-datas-grid">
+                    <p className="marvel-datas">
+                      {characterData?.data?.results[0]?.stories?.available} -
+                      Stories
+                    </p>
+                    <p className="marvel-datas">
+                      {characterData?.data?.results[0]?.series?.available} -
+                      Series
+                    </p>
+                    <p className="marvel-datas">
+                      {characterData?.data?.results[0]?.events?.available} -
+                      Events
+                    </p>
+                    <p className="marvel-datas">
+                      {characterData?.data?.results[0]?.comics?.available} -
+                      Comics
+                    </p>
+                  </div>
+                </p>
               </div>
             ) : characterData?.data?.results[0]?.description ? (
               <div>
-                <b>Description: </b>
-                {characterData?.data?.results[0]?.description}
+                <p className="marvel-datas">
+                  <b>Description: </b>
+                  {characterData?.data?.results[0]?.description}{" "}
+                </p>
+                <p className="marvel-datas-results">
+                  <b>{`The ${characterData?.data?.results[0]?.name} was involved in:`}</b>
+                  <div className="marvel-datas-grid">
+                    <p className="marvel-datas">
+                      {characterData?.data?.results[0]?.stories?.available} -
+                      Stories
+                    </p>
+                    <p className="marvel-datas">
+                      {characterData?.data?.results[0]?.series?.available} -
+                      Series
+                    </p>
+                    <p className="marvel-datas">
+                      {characterData?.data?.results[0]?.events?.available} -
+                      Events
+                    </p>
+                    <p className="marvel-datas">
+                      {characterData?.data?.results[0]?.comics?.available} -
+                      Comics
+                    </p>
+                  </div>
+                </p>
               </div>
             ) : null
           ) : null}
-          <div className="wrapper">
-            {searchFailData && !cleanList
-              ? searchFailData?.data?.results.map((inside: any) => {
-                  return (
-                    <div key={`context-marvel-${inside?.name}`}>
-                      <div className="marvel-list-pre-button">
-                        <button
-                          className="marvel-list-button"
-                          onClick={() => {
-                            setSearch(inside?.name);
-                          }}
+          {searchFailData && !cleanList ? (
+            <div className="wrapper">
+              {searchFailData?.data?.results.map((inside: any) => {
+                return (
+                  <div key={`context-marvel-${inside?.name}`}>
+                    <div className="marvel-list-pre-button">
+                      <button
+                        className="marvel-list-button"
+                        onClick={() => {
+                          setSearch(inside?.name);
+                        }}
+                      >
+                        <div
+                          key={`marvel_${inside?.name}`}
+                          className="marvel-list"
                         >
-                          <div
-                            key={`marvel_${inside?.name}`}
-                            className="marvel-list"
-                          >
-                            <Image
-                              className="marvel-list-image"
-                              src={
-                                inside?.thumbnail?.path +
-                                  `.${inside?.thumbnail?.extension}` || ""
-                              }
-                              alt=""
-                              width={100}
-                              height={100}
-                            />
-                            {inside?.name}
-                          </div>
-                        </button>
-                      </div>
+                          <Image
+                            className="marvel-list-image"
+                            src={
+                              inside?.thumbnail?.path +
+                                `.${inside?.thumbnail?.extension}` || ""
+                            }
+                            alt=""
+                            width={100}
+                            height={100}
+                          />
+                          {inside?.name}
+                        </div>
+                      </button>
                     </div>
-                  );
-                })
-              : null}
-          </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : null}
+          {searchFailData && !cleanList ? (
+            <div>
+              <button
+                disabled={searchFailData?.data?.offset == 0}
+                className="pagination-button"
+                onClick={() => setOffSet(searchFailData?.data?.offset - 20)}
+              >
+                Previous Page
+              </button>
+              <button
+                disabled={
+                  searchFailData?.data?.offset > searchFailData?.data?.total ||
+                  searchFailData?.data?.count < 20
+                }
+                className="pagination-button"
+                onClick={() => setOffSet(searchFailData?.data?.offset + 20)}
+              >
+                Next Page
+              </button>
+            </div>
+          ) : null}
         </div>
       </section>
     </Container>
