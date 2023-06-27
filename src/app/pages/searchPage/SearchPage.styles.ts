@@ -40,6 +40,20 @@ export const Container = styled.div`
       position: absolute;
     }
 
+    .marvel-datas-grid {
+      display: grid;
+      grid-auto-rows: 30px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .marvel-datas {
+      justify-self: center;
+    }
+
+    .marvel-datas-results {
+      padding: 10px 0 0 0;
+    }
+
     .marvel-description {
       padding: 10px;
     }
@@ -131,6 +145,20 @@ export const Container = styled.div`
     .avatar-img {
       width: 100%;
       height: 100%;
+    }
+
+    .marvel-datas-grid {
+      display: grid;
+      grid-auto-rows: 30px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .marvel-datas {
+      justify-self: center;
+    }
+
+    .marvel-datas-results {
+      padding: 10px 0 0 0;
     }
 
     .marvel-description {

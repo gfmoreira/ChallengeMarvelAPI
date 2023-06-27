@@ -80,13 +80,59 @@ export default function SearchPage() {
           {characterData ? (
             characterData?.data?.results[0]?.description == "" ? (
               <div>
-                <b>Description: </b>
-                Confidential
+                <p className="marvel-datas">
+                  <b>Description: </b>
+                  Confidential
+                </p>
+                <p>
+                  <b>{`The ${characterData?.data?.results[0]?.name} was involved in:`}</b>
+                  <div className="marvel-datas-grid">
+                    <p className="marvel-datas">
+                      {characterData?.data?.results[0]?.stories?.available} -
+                      Stories
+                    </p>
+                    <p className="marvel-datas">
+                      {characterData?.data?.results[0]?.series?.available} -
+                      Series
+                    </p>
+                    <p className="marvel-datas">
+                      {characterData?.data?.results[0]?.events?.available} -
+                      Events
+                    </p>
+                    <p className="marvel-datas">
+                      {characterData?.data?.results[0]?.comics?.available} -
+                      Comics
+                    </p>
+                  </div>
+                </p>
               </div>
             ) : characterData?.data?.results[0]?.description ? (
               <div>
-                <b>Description: </b>
-                {characterData?.data?.results[0]?.description}
+                <p className="marvel-datas">
+                  <b>Description: </b>
+                  {characterData?.data?.results[0]?.description}{" "}
+                </p>
+                <p className="marvel-datas-results">
+                  <b>{`The ${characterData?.data?.results[0]?.name} was involved in:`}</b>
+                  <div className="marvel-datas-grid">
+                    <p className="marvel-datas">
+                      {characterData?.data?.results[0]?.stories?.available} -
+                      Stories
+                    </p>
+                    <p className="marvel-datas">
+                      {characterData?.data?.results[0]?.series?.available} -
+                      Series
+                    </p>
+                    <p className="marvel-datas">
+                      {characterData?.data?.results[0]?.events?.available} -
+                      Events
+                    </p>
+                    <p className="marvel-datas">
+                      {characterData?.data?.results[0]?.comics?.available} -
+                      Comics
+                    </p>
+                  </div>
+                </p>
               </div>
             ) : null
           ) : null}
