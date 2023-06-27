@@ -43,8 +43,8 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background-start-rgb: 38, 48, 56;
+    --background-end-rgb: 38, 48, 56;
 
     --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
     --secondary-glow: linear-gradient(
@@ -78,7 +78,9 @@
   padding: 0;
   margin: 0;
 }
-
+main{
+  padding-top: 15px !important
+}
 html,
 body {
   max-width: 100vw;
