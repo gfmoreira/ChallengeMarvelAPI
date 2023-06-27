@@ -11,6 +11,8 @@ const useMarvel = () => {
   const [characterImage, setCharacterImage] = useState<string>("");
   const [toggle, setToggle] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+  const [cleanList, setCleanList] = useState<boolean>(false);
+
   const timeStamp = "moreira";
   const apikey = "e1617452b0f5dba807b26d025cb75e01";
   const md5 = "011df3685662ce0d345f9a855f1f97a2";
@@ -46,6 +48,7 @@ const useMarvel = () => {
       setBlockRequestByCaractere(false);
       setCharacterImage("");
       setToggle(true);
+      setCleanList(false);
     }
     if (characterData?.data?.results[0]) {
       setCharacterImage(
@@ -71,6 +74,7 @@ const useMarvel = () => {
     if (search) {
       setBlockRequest(false);
       setToggle(false);
+      setCleanList(true);
     }
   }, [search]);
 
@@ -92,6 +96,7 @@ const useMarvel = () => {
   ]);
 
   return {
+    cleanList,
     search,
     toggle,
     setSearch,

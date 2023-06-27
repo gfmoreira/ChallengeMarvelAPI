@@ -18,15 +18,62 @@ export const Container = styled.div`
     padding-left: 10px;
   }
 
+  .wrapper {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: 200px;
+  }
+
+  .marvel-header {
+    margin: 15px 0 15px 0;
+  }
+
+  .marvel-logo {
+  }
+
+  .marvel-search-header {
+    background-color: #21294d;
+    height: 150px;
+    border-radius: 0 10px 0 0;
+    display: flex;
+  }
+
+  .marvel-list {
+    display: flex;
+    flex-flow: column;
+    width: 100px;
+    height: 150px;
+    margin: 10px;
+    border-radius: 10px;
+  }
+
+  .marvel-list-button {
+    border-radius: 5px;
+  }
+
+  .marvel-list-image {
+    margin-bottom: 10px;
+  }
+
+  .marvel-description {
+    padding: 10px;
+  }
+
+  .marvel-name {
+    padding: 10px 0 0 10px;
+    font-size: 35px;
+    font-family: Copperplate, Papyrus, fantasy;
+  }
+
   hr {
-    margin: 15px 0 15px;
+    margin: 10px;
   }
 
   section {
-    padding: 10px;
     width: 800px;
-    height: 350px;
-    background-color: grey;
+    height: 100%;
+    min-height: 150px;
+    background-color: #939393;
     border-radius: 10px;
   }
 `;
