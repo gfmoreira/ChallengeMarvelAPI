@@ -37,10 +37,12 @@ const useMarvel = (onError: (message: string) => void) => {
     )}&ts=${timeStamp}&apikey=${apikey}&hash=${md5}&offset=0`,
     block: blockRequestByCaractere,
   });
+
   useEffect(() => {
     if (characterData == null) return;
     if (characterData?.data?.results?.length == 0) {
       setBlockRequestByCaractere(false);
+      setCharacterImage("");
       setToggle(true);
     }
     if (characterData?.data?.results[0]) {
@@ -52,16 +54,17 @@ const useMarvel = (onError: (message: string) => void) => {
   }, [characterData]);
 
   useEffect(() => {
-    if (characterData) {
-      setBlockRequest(true);
-    }
+    if (characterData) setBlockRequest(true);
   }, [characterData]);
 
   useEffect(() => {
-    if (searchFailData) {
-      setBlockRequestByCaractere(true);
-    }
+    if (searchFailData) setBlockRequestByCaractere(true);
   }, [searchFailData]);
+
+  useEffect(() => {
+    if (requestError) onError(requestError);
+    if (failDataError) onError(failDataError);
+  }, [requestError, failDataError]);
 
   useEffect(() => {
     if (search) {
@@ -69,12 +72,14 @@ const useMarvel = (onError: (message: string) => void) => {
       setToggle(false);
     }
   }, [search]);
+
   useEffect(() => {
     const loading =
       (requestInitiated && !requestFinished) ||
       (requestFailDataInitiated && !requestFailDataFinished);
     if (loading) return setLoading(true);
     if (!loading) {
+      resetFailDataRequest();
       resetRequest();
       setLoading(false);
     }

@@ -5,6 +5,7 @@ import { Container } from "./SearchPage.styles";
 import Loader from "@/app/components/Loader/Loader";
 
 export default function SearchPage() {
+  const [heroeSearch, setHeroeSearch] = useState("");
   const {
     characterData,
     characterImage,
@@ -14,7 +15,7 @@ export default function SearchPage() {
     search,
     loading,
   } = useMarvel(() => {});
-  const [search2, setSearch2] = useState("");
+
   return (
     <Container>
       {loading ? <Loader /> : null}
@@ -30,32 +31,36 @@ export default function SearchPage() {
 
         <input
           type="text"
-          onChange={(event) => setSearch2(event.target.value)}
+          onChange={(event) => setHeroeSearch(event.target.value)}
           className="mb-2 text-black"
         />
         <button
           className="text-stone-900"
           onClick={() => {
-            setSearch(search2);
+            setSearch(heroeSearch);
           }}
         >
           Search
         </button>
-        <div>Name: {characterData?.data?.results[0]?.name}</div>
         <div>
-          Description:
+          <b>{characterData?.data?.results[0]?.name}</b>
+        </div>
+        <div>
+          <b>Description: </b>
           {characterData?.data?.results[0]?.description == ""
             ? "Confidential"
             : characterData?.data?.results[0]?.description}
         </div>
         <div>
-          <Image
-            className="avatar"
-            src={characterImage || ""}
-            alt=""
-            width={150}
-            height={150}
-          />
+          {characterImage ? (
+            <Image
+              className="avatar"
+              src={characterImage || ""}
+              alt=""
+              width={150}
+              height={150}
+            />
+          ) : null}
         </div>
       </section>
     </Container>
