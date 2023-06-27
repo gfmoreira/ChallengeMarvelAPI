@@ -24,26 +24,19 @@ export default function SearchPage() {
         <div>Ops... Something went wrong, please refresh the page</div>
       ) : null}
       {loading ? <Loader /> : null}
-      <div>
-        {characterImage ? (
-          <Image
-            className="avatar"
-            src={characterImage || ""}
-            alt=""
-            width={150}
-            height={150}
-          />
-        ) : null}
-      </div>
       <section>
+        <div className="avatar">
+          {characterImage ? (
+            <Image
+              className="avatar-img"
+              src={characterImage || ""}
+              alt=""
+              width={150}
+              height={150}
+            />
+          ) : null}
+        </div>
         <div className="marvel-search-header">
-          <Image
-            className="marvel-logo"
-            src={"/assets/img/america_logo.png"}
-            alt=""
-            width={100}
-            height={100}
-          />
           <input
             type="text"
             onChange={(event) => setHeroeSearch(event.target.value)}
@@ -64,9 +57,22 @@ export default function SearchPage() {
         <div className="marvel-description">
           {toggle ? (
             <div className="marvel-header">
-              Eita! Talvez <b>{search}</b> seja um heroi ou vilão novo e não
-              esta em nosso registros, mas, temos outros{" "}
-              {searchFailData?.data?.total} com a mesma inicial, confira :)
+              Ooops! Maybe <b>{search}</b> be a new hero or villain and not this
+              in our records, but we have others
+              {searchFailData?.data?.total} with the same initial letter, check
+              below :)
+              <hr></hr>
+            </div>
+          ) : null}
+          {!search ? (
+            <div>
+              <p className="marvel-welcome-title">
+                <b>Welcome to "Marvel Search" !</b>{" "}
+              </p>
+              <p className="marvel-welcome">
+                Here you can search for information about your Hero or Villain
+                :) Feel at home and test our application!
+              </p>
               <hr></hr>
             </div>
           ) : null}
@@ -88,7 +94,7 @@ export default function SearchPage() {
               ? searchFailData?.data?.results.map((inside: any) => {
                   return (
                     <div key={`context-marvel-${inside?.name}`}>
-                      <div>
+                      <div className="marvel-list-pre-button">
                         <button
                           className="marvel-list-button"
                           onClick={() => {
