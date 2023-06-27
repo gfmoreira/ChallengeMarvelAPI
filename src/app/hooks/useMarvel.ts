@@ -9,6 +9,7 @@ const useMarvel = () => {
   const [blockRequestByCaractere, setBlockRequestByCaractere] =
     useState<boolean>(true);
   const [characterImage, setCharacterImage] = useState<string>("");
+  const [offSet, setOffSet] = useState<any>("");
   const [toggle, setToggle] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [cleanList, setCleanList] = useState<boolean>(false);
@@ -38,7 +39,7 @@ const useMarvel = () => {
     url: `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${search.substring(
       0,
       1
-    )}&ts=${timeStamp}&apikey=${apikey}&hash=${md5}&offset=0`,
+    )}&ts=${timeStamp}&apikey=${apikey}&hash=${md5}&offset=${offSet}`,
     block: blockRequestByCaractere,
   });
 
@@ -49,6 +50,7 @@ const useMarvel = () => {
       setCharacterImage("");
       setToggle(true);
       setCleanList(false);
+      setOffSet(0);
     }
     if (characterData?.data?.results[0]) {
       setCharacterImage(
@@ -79,6 +81,13 @@ const useMarvel = () => {
   }, [search]);
 
   useEffect(() => {
+    if (offSet || offSet === 0) {
+      setBlockRequestByCaractere(false);
+      setCleanList(false);
+    }
+  }, [offSet]);
+
+  useEffect(() => {
     const loading =
       (requestInitiated && !requestFinished) ||
       (requestFailDataInitiated && !requestFailDataFinished);
@@ -96,6 +105,7 @@ const useMarvel = () => {
   ]);
 
   return {
+    setOffSet,
     cleanList,
     search,
     toggle,
