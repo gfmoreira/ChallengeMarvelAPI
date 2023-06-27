@@ -5,7 +5,7 @@ import { Container } from "./SearchPage.styles";
 import Loader from "@/app/components/Loader/Loader";
 
 export default function SearchPage() {
-  const [heroeSearch, setHeroeSearch] = useState("");
+  const [heroeSearch, setHeroeSearch] = useState<string>("");
   const {
     characterData,
     characterImage,
@@ -14,11 +14,26 @@ export default function SearchPage() {
     searchFailData,
     search,
     loading,
-  } = useMarvel(() => {});
+    error,
+  } = useMarvel();
 
   return (
     <Container>
+      {error ? (
+        <div>Ops... Something went wrong, please refresh the page</div>
+      ) : null}
       {loading ? <Loader /> : null}
+      <div>
+        {characterImage ? (
+          <Image
+            className="avatar"
+            src={characterImage || ""}
+            alt=""
+            width={150}
+            height={150}
+          />
+        ) : null}
+      </div>
       <section>
         {toggle ? (
           <div>
@@ -32,35 +47,32 @@ export default function SearchPage() {
         <input
           type="text"
           onChange={(event) => setHeroeSearch(event.target.value)}
-          className="mb-2 text-black"
+          className="search-input"
         />
         <button
-          className="text-stone-900"
+          className="search-button"
           onClick={() => {
             setSearch(heroeSearch);
           }}
         >
           Search
         </button>
+        <hr></hr>
         <div>
           <b>{characterData?.data?.results[0]?.name}</b>
         </div>
         <div>
-          <b>Description: </b>
-          {characterData?.data?.results[0]?.description == ""
-            ? "Confidential"
-            : characterData?.data?.results[0]?.description}
-        </div>
-        <div>
-          {characterImage ? (
-            <Image
-              className="avatar"
-              src={characterImage || ""}
-              alt=""
-              width={150}
-              height={150}
-            />
-          ) : null}
+          {characterData?.data?.results[0]?.description == "" ? (
+            <div>
+              <b>Description: </b>
+              Confidential
+            </div>
+          ) : (
+            <div>
+              <b>Description: </b>
+              {characterData?.data?.results[0]?.description}
+            </div>
+          )}
         </div>
       </section>
     </Container>

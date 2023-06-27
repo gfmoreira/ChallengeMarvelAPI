@@ -2,13 +2,15 @@
 import { useEffect, useState } from "react";
 import useFetch from "./useFetch";
 
-const useMarvel = (onError: (message: string) => void) => {
-  const [loading, setLoading] = useState(false);
-  const [search, setSearch] = useState("");
-  const [blockRequest, setBlockRequest] = useState(true);
-  const [blockRequestByCaractere, setBlockRequestByCaractere] = useState(true);
-  const [characterImage, setCharacterImage] = useState("");
-  const [toggle, setToggle] = useState(false);
+const useMarvel = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>("");
+  const [blockRequest, setBlockRequest] = useState<boolean>(true);
+  const [blockRequestByCaractere, setBlockRequestByCaractere] =
+    useState<boolean>(true);
+  const [characterImage, setCharacterImage] = useState<string>("");
+  const [toggle, setToggle] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
   const timeStamp = "moreira";
   const apikey = "e1617452b0f5dba807b26d025cb75e01";
   const md5 = "011df3685662ce0d345f9a855f1f97a2";
@@ -62,8 +64,7 @@ const useMarvel = (onError: (message: string) => void) => {
   }, [searchFailData]);
 
   useEffect(() => {
-    if (requestError) onError(requestError);
-    if (failDataError) onError(failDataError);
+    if (requestError || failDataError) setError(true);
   }, [requestError, failDataError]);
 
   useEffect(() => {
@@ -99,6 +100,7 @@ const useMarvel = (onError: (message: string) => void) => {
     loading,
     setBlockRequest,
     searchFailData,
+    error,
   };
 };
 
