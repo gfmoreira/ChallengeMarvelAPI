@@ -15,8 +15,6 @@ export default function SearchPage() {
     loading,
   } = useMarvel(() => {});
   const [search2, setSearch2] = useState("");
-  const [showModal, setShowModal] = useState<boolean>(false);
-  console.log(loading);
   return (
     <Container>
       {loading ? <Loader /> : null}
@@ -26,7 +24,7 @@ export default function SearchPage() {
             Eita! Talvez {search} seja um heroi ou vilão novo e não esta em
             nosso registros, mas, temos outros {searchFailData?.data?.total} com
             a mesma inicial, posso te mostrar?
-            <button onClick={() => setShowModal(true)}>Abrir Lista</button>
+            <button onClick={() => ""}>Abrir Lista</button>
           </div>
         ) : null}
 
