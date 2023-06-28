@@ -13,13 +13,12 @@ const useMarvel = () => {
   const [toggle, setToggle] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [cleanList, setCleanList] = useState<boolean>(false);
-
   const timeStamp = "moreira";
   const apikey = "e1617452b0f5dba807b26d025cb75e01";
   const md5 = "011df3685662ce0d345f9a855f1f97a2";
 
   const {
-    data: characterData,
+    data: characterFetchData,
     initiated: requestInitiated,
     finished: requestFinished,
     reset: resetRequest,
@@ -30,7 +29,7 @@ const useMarvel = () => {
   });
 
   const {
-    data: searchFailData,
+    data: searchFetchFailData,
     initiated: requestFailDataInitiated,
     finished: requestFailDataFinished,
     reset: resetFailDataRequest,
@@ -42,6 +41,9 @@ const useMarvel = () => {
     )}&ts=${timeStamp}&apikey=${apikey}&hash=${md5}&offset=${offSet}`,
     block: blockRequestByCaractere,
   });
+
+  const characterData: any = characterFetchData;
+  const searchFailData: any = searchFetchFailData;
 
   useEffect(() => {
     if (characterData == null) return;
