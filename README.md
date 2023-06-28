@@ -51,3 +51,11 @@ ChallengeMarvelAPI/
 ```
 
 -- Then open your browser at the address "http://localhost:3000/" --
+
+---
+
+## Last Results 06/27/2023
+
+![alt text](./public/assets/img/final-result.gif)
+
+---
