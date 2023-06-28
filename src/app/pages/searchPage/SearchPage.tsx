@@ -68,7 +68,7 @@ export default function SearchPage() {
           {!search ? (
             <div>
               <p className="marvel-welcome-title">
-                <b>Welcome to "Marvel Search" !</b>
+                <b>Welcome to Marvel Search !</b>
               </p>
               <p className="marvel-welcome">
                 Here you can search for information about your Hero or Villain
