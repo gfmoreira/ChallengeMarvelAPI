@@ -1,10 +1,10 @@
 import useMarvel from "@/app/hooks/useMarvel";
 import { useState } from "react";
 import Image from "next/image";
-import { Container } from "./SearchPage.styles";
+import { Container } from "./ResultPage.styles";
 import Loader from "@/app/components/Loader/Loader";
 
-export default function SearchPage() {
+export default function ResultPage() {
   const [heroeSearch, setHeroeSearch] = useState<string>("");
   const {
     characterData,
@@ -21,6 +21,9 @@ export default function SearchPage() {
 
   return (
     <Container>
+      {error ? (
+        <div>Ops... Something went wrong, please refresh the page</div>
+      ) : null}
       {loading ? <Loader /> : null}
       <section>
         <div className="avatar">
@@ -29,26 +32,10 @@ export default function SearchPage() {
               className="avatar-img"
               src={characterImage || ""}
               alt=""
-              width={400}
-              height={400}
+              width={150}
+              height={150}
             />
           ) : null}
-        </div>
-        <div className="marvel-search-header">
-          <input
-            placeholder="type here..."
-            type="text"
-            onChange={(event) => setHeroeSearch(event.target.value)}
-            className="search-input"
-          />
-          <button
-            className="search-button"
-            onClick={() => {
-              setSearch(heroeSearch);
-            }}
-          >
-            Search
-          </button>
         </div>
         <div className="marvel-name">
           <b>{characterData?.data?.results[0]?.name}</b>
@@ -84,29 +71,24 @@ export default function SearchPage() {
                 </p>
                 <p>
                   <b>{`The ${characterData?.data?.results[0]?.name} was involved in:`}</b>
-
-                  <table>
-                    <tr>
-                      <th>Stories</th>
-                      <th>Series</th>
-                      <th>Events</th>
-                      <th>Comics</th>
-                    </tr>
-                    <tr>
-                      <td>
-                        {characterData?.data?.results[0]?.stories?.available}
-                      </td>
-                      <td>
-                        {characterData?.data?.results[0]?.series?.available}
-                      </td>
-                      <td>
-                        {characterData?.data?.results[0]?.events?.available}
-                      </td>
-                      <td>
-                        {characterData?.data?.results[0]?.comics?.available}
-                      </td>
-                    </tr>
-                  </table>
+                  <div className="marvel-datas-grid">
+                    <p className="marvel-datas">
+                      {characterData?.data?.results[0]?.stories?.available} -
+                      Stories
+                    </p>
+                    <p className="marvel-datas">
+                      {characterData?.data?.results[0]?.series?.available} -
+                      Series
+                    </p>
+                    <p className="marvel-datas">
+                      {characterData?.data?.results[0]?.events?.available} -
+                      Events
+                    </p>
+                    <p className="marvel-datas">
+                      {characterData?.data?.results[0]?.comics?.available} -
+                      Comics
+                    </p>
+                  </div>
                 </p>
               </div>
             ) : characterData?.data?.results[0]?.description ? (
@@ -118,9 +100,9 @@ export default function SearchPage() {
                 <p className="marvel-datas-results">
                   <b>{`The ${characterData?.data?.results[0]?.name} was involved in:`}</b>
                   <div className="marvel-datas-grid">
-                    <p>Stories</p>
                     <p className="marvel-datas">
-                      {characterData?.data?.results[0]?.stories?.available}
+                      {characterData?.data?.results[0]?.stories?.available} -
+                      Stories
                     </p>
                     <p className="marvel-datas">
                       {characterData?.data?.results[0]?.series?.available} -

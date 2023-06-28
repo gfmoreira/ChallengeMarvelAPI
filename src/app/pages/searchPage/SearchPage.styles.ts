@@ -23,20 +23,19 @@ export const Container = styled.div`
     }
 
     section {
-      background-color: #939393;
-      border-radius: 10px;
-      height: 100%;
+      background-image: URL("/assets/img/background.jpg");
+      background-size: 100%;
+      border-radius: 10px 0 0 10px;
+      height: 720px;
       min-height: 150px;
-      width: 660px;
+      width: 1280px;
     }
 
     .avatar {
-      display: flex;
-      justify-content: end;
     }
 
     .avatar-img {
-      border-radius: 0 10px 0 50px;
+      border-radius: 9px 0 400px 0;
       position: absolute;
     }
 
@@ -56,6 +55,8 @@ export const Container = styled.div`
 
     .marvel-description {
       padding: 10px;
+      float: right;
+      width: 40%;
     }
 
     .marvel-header {
@@ -86,14 +87,21 @@ export const Container = styled.div`
       padding: 10px 0 0 10px;
     }
 
+    table th,
+    table td {
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+    }
+
     .marvel-search-header {
-      align-items: center;
-      background-color: #21294d;
-      background-image: URL("/assets/img/america_logo.png");
-      background-repeat: no-repeat;
-      background-position: left;
       border-radius: 0 10px 0 0;
       display: flex;
+      justify-content: flex-end;
       height: 150px;
       width: 100%;
     }
@@ -105,15 +113,26 @@ export const Container = styled.div`
     }
 
     .search-button {
+      background-color: #263038;
+      border: none;
+      border-bottom: 1px solid #fff;
       height: 35px;
-      margin-left: 10px;
+      margin-top: 5px;
       width: 100px;
+      margin-right: 10px;
+    }
+
+    .search-button:hover {
+      box-shadow: 0 7px 14px rgba(0, 0, 0, 0.18), 0 5px 5px rgba(0, 0, 0, 0.12);
     }
 
     .search-input {
+      background-color: #263038;
+      border: none;
+      border-bottom: 1px solid #fff;
       height: 35px;
       padding-left: 10px;
-      margin: 5px;
+      margin-top: 5px;
       width: 200px;
     }
 
@@ -121,118 +140,6 @@ export const Container = styled.div`
       display: grid;
       grid-auto-rows: 200px;
       grid-template-columns: repeat(5, 1fr);
-    }
-  }
-
-  @media screen and (max-width: 660px) {
-    hr {
-      margin: 10px;
-    }
-
-    section {
-      background-color: #939393;
-      border-radius: 10px;
-      height: 100%;
-      min-height: 150px;
-      max-width: 800px;
-      display: grid;
-    }
-
-    .avatar {
-      order: 2;
-    }
-
-    .avatar-img {
-      width: 100%;
-      height: 100%;
-    }
-
-    .marvel-datas-grid {
-      display: grid;
-      grid-auto-rows: 30px;
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    .marvel-datas {
-      justify-self: center;
-    }
-
-    .marvel-datas-results {
-      padding: 10px 0 0 0;
-    }
-
-    .marvel-description {
-      padding: 10px;
-      order: 4;
-    }
-
-    .marvel-header {
-      margin: 15px 0 15px 0;
-    }
-
-    .marvel-list {
-      border-radius: 10px;
-      display: flex;
-      flex-flow: column;
-      height: 150px;
-      margin: 10px;
-      width: 100px;
-    }
-
-    .marvel-list-button {
-      border-radius: 5px;
-    }
-
-    .marvel-list-image {
-      margin-bottom: 10px;
-    }
-
-    .marvel-name {
-      font-family: Copperplate, Papyrus, fantasy;
-      font-size: 35px;
-      padding: 10px 0 0 10px;
-      order: 3;
-    }
-
-    .marvel-search-header {
-      align-items: center;
-      background-color: #21294d;
-      background-image: URL("/assets/img/america_logo.png");
-      background-repeat: no-repeat;
-      background-position: left;
-      border-radius: 5px 5px 0 0;
-      display: flex;
-      height: 150px;
-      width: 100%;
-      order: 1;
-    }
-
-    .pagination-button {
-      height: 35px;
-      margin-left: 10px;
-      width: 100px;
-    }
-
-    .pagination-button-align {
-      text-align: center;
-    }
-
-    .search-button {
-      height: 35px;
-      margin-left: 10px;
-      width: 100px;
-    }
-
-    .search-input {
-      height: 35px;
-      padding-left: 10px;
-      width: 200px;
-    }
-
-    .wrapper {
-      display: grid;
-      grid-auto-rows: 200px;
-      grid-template-columns: repeat(2, 1fr);
     }
   }
 `;
