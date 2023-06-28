@@ -207,6 +207,16 @@ export const Container = styled.div`
       order: 1;
     }
 
+    .pagination-button {
+      height: 35px;
+      margin-left: 10px;
+      width: 100px;
+    }
+
+    .pagination-button-align {
+      text-align: center;
+    }
+
     .search-button {
       height: 35px;
       margin-left: 10px;
