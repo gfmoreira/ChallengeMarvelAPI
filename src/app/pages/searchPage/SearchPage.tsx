@@ -172,7 +172,7 @@ export default function SearchPage() {
             </div>
           ) : null}
           {searchFailData && !cleanList ? (
-            <div>
+            <div className="pagination-button-align">
               <button
                 disabled={searchFailData?.data?.offset == 0}
                 className="pagination-button"
