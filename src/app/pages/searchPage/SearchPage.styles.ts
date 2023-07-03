@@ -15,28 +15,95 @@ export const Container = styled.div`
     font-size: 25px;
     padding: 0 10px 10px 0;
     text-align: center;
+    margin-top: 15px;
   }
 
   @media screen and (min-width: 661px) {
+    @keyframes display {
+      0% {
+        transform: translateX(200px);
+        opacity: 0;
+      }
+      10% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      20% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      30% {
+        transform: translateX(-200px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(-200px);
+        opacity: 0;
+      }
+    }
+
+    .pic-ctn {
+      position: relative;
+    }
+
+    .pic-ctn > div {
+      position: absolute;
+      top: 0;
+      left: calc(50% - 100px);
+      opacity: 0;
+      animation: display 10s infinite;
+    }
+
+    div:nth-child(2) {
+      animation-delay: 2s;
+    }
+    div:nth-child(3) {
+      animation-delay: 4s;
+    }
+    div:nth-child(4) {
+      animation-delay: 6s;
+    }
+    div:nth-child(5) {
+      animation-delay: 8s;
+    }
+    div:nth-child(6) {
+      animation-delay: 10s;
+    }
+    div:nth-child(7) {
+      animation-delay: 12s;
+    }
+    div:nth-child(8) {
+      animation-delay: 14s;
+    }
+    div:nth-child(9) {
+      animation-delay: 16s;
+    }
+    div:nth-child(610) {
+      animation-delay: 18s;
+    }
+
     hr {
       margin: 10px;
     }
 
     section {
-      background-image: URL("/assets/img/background.jpg");
-      background-size: 100%;
-      border-radius: 10px 0 0 10px;
+      border-top: 2px solid #2e2e2e;
+      background-color: #000;
       height: 720px;
       min-height: 150px;
-      width: 1280px;
+      width: 640px;
+    }
+
+    .background-image-true {
+      background-image: URL("/assets/img/background-left.jpg");
     }
 
     .avatar {
     }
 
     .avatar-img {
-      border-radius: 9px 0 400px 0;
-      position: absolute;
+      margin: 10px;
+      border: 2px solid #fff;
     }
 
     .marvel-datas-grid {
@@ -56,11 +123,17 @@ export const Container = styled.div`
     .marvel-description {
       padding: 10px;
       float: right;
-      width: 40%;
+      grid-column-end: span 2;
     }
 
     .marvel-header {
       margin: 15px 0 15px 0;
+    }
+
+    .marvel-information {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: 330px;
     }
 
     .marvel-list {
@@ -72,6 +145,18 @@ export const Container = styled.div`
       width: 100px;
     }
 
+    .marvel-comic-list {
+      border-radius: 5px;
+      display: flex;
+      flex-flow: column;
+      margin: 5px;
+    }
+
+    .marvel-comic-results {
+      display: grid;
+      grid-template-columns: repeat(4, 4fr);
+    }
+
     .marvel-list-button {
       border-radius: 5px;
       margin: 2px;
@@ -81,10 +166,14 @@ export const Container = styled.div`
       margin-bottom: 10px;
     }
 
+    .marvel-comic-list-image {
+    }
+
     .marvel-name {
       font-family: Copperplate, Papyrus, fantasy;
       font-size: 35px;
       padding: 10px 0 0 10px;
+      text-align: center;
     }
 
     table th,

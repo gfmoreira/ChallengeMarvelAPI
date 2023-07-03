@@ -23,11 +23,12 @@ export const Container = styled.div`
     }
 
     section {
-      background-color: #939393;
-      border-radius: 10px;
-      height: 100%;
+      border-top: 2px solid #2e2e2e;
+      background-image: URL("/assets/img/background-right.jpg");
+      background-size: 100%;
+      height: 720px;
       min-height: 150px;
-      width: 660px;
+      width: 640px;
     }
 
     .avatar {
@@ -86,6 +87,10 @@ export const Container = styled.div`
       padding: 10px 0 0 10px;
     }
 
+    .marvel-result-text {
+      padding-bottom: 10px;
+    }
+
     .marvel-search-header {
       align-items: center;
       background-color: #21294d;
@@ -120,7 +125,7 @@ export const Container = styled.div`
     .wrapper {
       display: grid;
       grid-auto-rows: 200px;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(4, 1fr);
     }
   }
 

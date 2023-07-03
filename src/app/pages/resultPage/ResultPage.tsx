@@ -26,30 +26,7 @@ export default function ResultPage() {
       ) : null}
       {loading ? <Loader /> : null}
       <section>
-        <div className="avatar">
-          {characterImage ? (
-            <Image
-              className="avatar-img"
-              src={characterImage || ""}
-              alt=""
-              width={150}
-              height={150}
-            />
-          ) : null}
-        </div>
-        <div className="marvel-name">
-          <b>{characterData?.data?.results[0]?.name}</b>
-        </div>
         <div className="marvel-description">
-          {toggle ? (
-            <div className="marvel-header">
-              Ooops! Maybe <b>{search}</b> be a new hero or villain and not this
-              in our records, but we have others
-              {searchFailData?.data?.total} with the same initial letter, check
-              below :)
-              <hr></hr>
-            </div>
-          ) : null}
           {!search ? (
             <div>
               <p className="marvel-welcome-title">
@@ -62,98 +39,45 @@ export default function ResultPage() {
               <hr></hr>
             </div>
           ) : null}
-          {characterData ? (
-            characterData?.data?.results[0]?.description == "" ? (
-              <div>
-                <p className="marvel-datas">
-                  <b>Description: </b>
-                  Confidential
-                </p>
-                <p>
-                  <b>{`The ${characterData?.data?.results[0]?.name} was involved in:`}</b>
-                  <div className="marvel-datas-grid">
-                    <p className="marvel-datas">
-                      {characterData?.data?.results[0]?.stories?.available} -
-                      Stories
-                    </p>
-                    <p className="marvel-datas">
-                      {characterData?.data?.results[0]?.series?.available} -
-                      Series
-                    </p>
-                    <p className="marvel-datas">
-                      {characterData?.data?.results[0]?.events?.available} -
-                      Events
-                    </p>
-                    <p className="marvel-datas">
-                      {characterData?.data?.results[0]?.comics?.available} -
-                      Comics
-                    </p>
-                  </div>
-                </p>
-              </div>
-            ) : characterData?.data?.results[0]?.description ? (
-              <div>
-                <p className="marvel-datas">
-                  <b>Description: </b>
-                  {characterData?.data?.results[0]?.description}{" "}
-                </p>
-                <p className="marvel-datas-results">
-                  <b>{`The ${characterData?.data?.results[0]?.name} was involved in:`}</b>
-                  <div className="marvel-datas-grid">
-                    <p className="marvel-datas">
-                      {characterData?.data?.results[0]?.stories?.available} -
-                      Stories
-                    </p>
-                    <p className="marvel-datas">
-                      {characterData?.data?.results[0]?.series?.available} -
-                      Series
-                    </p>
-                    <p className="marvel-datas">
-                      {characterData?.data?.results[0]?.events?.available} -
-                      Events
-                    </p>
-                    <p className="marvel-datas">
-                      {characterData?.data?.results[0]?.comics?.available} -
-                      Comics
-                    </p>
-                  </div>
-                </p>
-              </div>
-            ) : null
-          ) : null}
-          {searchFailData && !cleanList ? (
-            <div className="wrapper">
-              {searchFailData?.data?.results.map((inside: any) => {
-                return (
-                  <div key={`context-marvel-${inside?.name}`}>
-                    <div className="marvel-list-pre-button">
-                      <button
-                        className="marvel-list-button"
-                        onClick={() => {
-                          setSearch(inside?.name);
-                        }}
-                      >
-                        <div
-                          key={`marvel_${inside?.name}`}
-                          className="marvel-list"
+
+          {searchFailData ? (
+            <div>
+              <p className="marvel-result-text">
+                We have {searchFailData?.data?.total} results for this search...
+              </p>
+              <div className="wrapper">
+                {searchFailData?.data?.results.map((inside: any) => {
+                  return (
+                    <div key={`context-marvel-${inside?.name}`}>
+                      <div className="marvel-list-pre-button">
+                        <button
+                          className="marvel-list-button"
+                          onClick={() => {
+                            setSearch(inside?.name);
+                          }}
                         >
-                          <Image
-                            className="marvel-list-image"
-                            src={
-                              inside?.thumbnail?.path +
-                                `.${inside?.thumbnail?.extension}` || ""
-                            }
-                            alt=""
-                            width={100}
-                            height={100}
-                          />
-                          {inside?.name}
-                        </div>
-                      </button>
+                          <div
+                            key={`marvel_${inside?.name}`}
+                            className="marvel-list"
+                          >
+                            <Image
+                              className="marvel-list-image"
+                              src={
+                                inside?.thumbnail?.path +
+                                  `.${inside?.thumbnail?.extension}` || ""
+                              }
+                              alt=""
+                              width={100}
+                              height={100}
+                            />
+                            {inside?.name}
+                          </div>
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
           ) : null}
           {searchFailData && !cleanList ? (
@@ -161,17 +85,17 @@ export default function ResultPage() {
               <button
                 disabled={searchFailData?.data?.offset == 0}
                 className="pagination-button"
-                onClick={() => setOffSet(searchFailData?.data?.offset - 20)}
+                onClick={() => setOffSet(searchFailData?.data?.offset - 12)}
               >
                 Previous Page
               </button>
               <button
                 disabled={
                   searchFailData?.data?.offset > searchFailData?.data?.total ||
-                  searchFailData?.data?.count < 20
+                  searchFailData?.data?.count < 12
                 }
                 className="pagination-button"
-                onClick={() => setOffSet(searchFailData?.data?.offset + 20)}
+                onClick={() => setOffSet(searchFailData?.data?.offset + 12)}
               >
                 Next Page
               </button>

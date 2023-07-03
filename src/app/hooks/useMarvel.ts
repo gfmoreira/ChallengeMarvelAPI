@@ -1,21 +1,25 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useFetch from "./useFetch";
+import { SearchContext } from "@/app/contexts/SearchContext";
 
 const useMarvel = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [search, setSearch] = useState<string>("");
   const [blockRequest, setBlockRequest] = useState<boolean>(true);
+  const [blockComicRequest, setBlockComicRequest] = useState<boolean>(true);
   const [blockRequestByCaractere, setBlockRequestByCaractere] =
     useState<boolean>(true);
   const [characterImage, setCharacterImage] = useState<string>("");
   const [offSet, setOffSet] = useState<any>("");
-  const [toggle, setToggle] = useState<boolean>(false);
+  const [toggle, setToggle] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const [cleanList, setCleanList] = useState<boolean>(false);
+  const [idComic, setIdComic] = useState<number>();
   const timeStamp = "moreira";
   const apikey = "e1617452b0f5dba807b26d025cb75e01";
   const md5 = "011df3685662ce0d345f9a855f1f97a2";
+
+  const { search, setSearch } = useContext(SearchContext);
 
   const {
     data: characterFetchData,
@@ -24,8 +28,13 @@ const useMarvel = () => {
     reset: resetRequest,
     error: requestError,
   } = useFetch({
-    url: `https://gateway.marvel.com/v1/public/characters?name=${search.trim()}&ts=${timeStamp}&apikey=${apikey}&hash=${md5}`,
+    url: `https://gateway.marvel.com/v1/public/characters?name=${search}&ts=${timeStamp}&apikey=${apikey}&hash=${md5}`,
     block: blockRequest,
+  });
+
+  const { data: comicFetchData } = useFetch({
+    url: `https://gateway.marvel.com/v1/public/characters/${idComic}/comics?&ts=${timeStamp}&apikey=${apikey}&hash=${md5}&limit=100`,
+    block: blockComicRequest,
   });
 
   const {
@@ -35,26 +44,24 @@ const useMarvel = () => {
     reset: resetFailDataRequest,
     error: failDataError,
   } = useFetch({
-    url: `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${search.substring(
-      0,
-      1
-    )}&ts=${timeStamp}&apikey=${apikey}&hash=${md5}&offset=${offSet}`,
+    url: `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${search}&ts=${timeStamp}&apikey=${apikey}&hash=${md5}&offset=${offSet}&limit=12`,
     block: blockRequestByCaractere,
   });
 
   const characterData: any = characterFetchData;
   const searchFailData: any = searchFetchFailData;
+  const comicData: any = comicFetchData;
 
   useEffect(() => {
     if (characterData == null) return;
     if (characterData?.data?.results?.length == 0) {
       setBlockRequestByCaractere(false);
       setCharacterImage("");
-      setToggle(true);
       setCleanList(false);
       setOffSet(0);
     }
     if (characterData?.data?.results[0]) {
+      setToggle(false);
       setCharacterImage(
         characterData?.data?.results[0]?.thumbnail?.path +
           `.${characterData?.data?.results[0]?.thumbnail?.extension}`
@@ -63,7 +70,11 @@ const useMarvel = () => {
   }, [characterData]);
 
   useEffect(() => {
-    if (characterData) setBlockRequest(true);
+    if (characterData) {
+      setBlockRequest(true);
+      setIdComic(characterData?.data?.results[0]?.id);
+      setBlockComicRequest(false);
+    }
   }, [characterData]);
 
   useEffect(() => {
@@ -76,9 +87,9 @@ const useMarvel = () => {
 
   useEffect(() => {
     if (search) {
-      setBlockRequest(false);
-      setToggle(false);
+      setBlockRequestByCaractere(false);
       setCleanList(true);
+      setToggle(true);
     }
   }, [search]);
 
@@ -107,6 +118,7 @@ const useMarvel = () => {
   ]);
 
   return {
+    comicData,
     setOffSet,
     cleanList,
     search,
