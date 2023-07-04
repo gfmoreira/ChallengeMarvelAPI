@@ -7,19 +7,22 @@ const useMarvel = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [blockRequest, setBlockRequest] = useState<boolean>(true);
   const [blockComicRequest, setBlockComicRequest] = useState<boolean>(true);
-  const [blockRequestByCaractere, setBlockRequestByCaractere] =
+  const [blockSelectedCharacter, setBlockSelectedCharacter] =
     useState<boolean>(true);
   const [characterImage, setCharacterImage] = useState<string>("");
   const [offSet, setOffSet] = useState<any>("");
   const [toggle, setToggle] = useState<boolean>(true);
-  const [error, setError] = useState<boolean>(false);
-  const [cleanList, setCleanList] = useState<boolean>(false);
-  const [idComic, setIdComic] = useState<number>();
   const timeStamp = "moreira";
   const apikey = "e1617452b0f5dba807b26d025cb75e01";
   const md5 = "011df3685662ce0d345f9a855f1f97a2";
 
-  const { search, setSearch } = useContext(SearchContext);
+  const {
+    search,
+    selectedCharactere,
+    setSelectedCharacter,
+    idComic,
+    setIdComic,
+  } = useContext(SearchContext);
 
   const {
     data: characterFetchData,
@@ -28,108 +31,102 @@ const useMarvel = () => {
     reset: resetRequest,
     error: requestError,
   } = useFetch({
-    url: `https://gateway.marvel.com/v1/public/characters?name=${search}&ts=${timeStamp}&apikey=${apikey}&hash=${md5}`,
+    url: `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${search}&ts=${timeStamp}&apikey=${apikey}&hash=${md5}&offset=${offSet}&limit=12`,
     block: blockRequest,
   });
 
-  const { data: comicFetchData } = useFetch({
-    url: `https://gateway.marvel.com/v1/public/characters/${idComic}/comics?&ts=${timeStamp}&apikey=${apikey}&hash=${md5}&limit=100`,
-    block: blockComicRequest,
+  const {
+    data: selectedCharacterFetchData,
+    initiated: selectedInitiated,
+    finished: selectedFinished,
+    reset: resetSelected,
+  } = useFetch({
+    url: `https://gateway.marvel.com/v1/public/characters/${selectedCharactere}?ts=${timeStamp}&apikey=${apikey}&hash=${md5}`,
+    block: blockSelectedCharacter,
   });
 
   const {
-    data: searchFetchFailData,
-    initiated: requestFailDataInitiated,
-    finished: requestFailDataFinished,
-    reset: resetFailDataRequest,
-    error: failDataError,
+    data: comicFetchData,
+    initiated: comicFetchInitiated,
+    finished: comicFetchFinished,
+    reset: resetComicFetch,
   } = useFetch({
-    url: `https://gateway.marvel.com/v1/public/characters?nameStartsWith=${search}&ts=${timeStamp}&apikey=${apikey}&hash=${md5}&offset=${offSet}&limit=12`,
-    block: blockRequestByCaractere,
+    url: `https://gateway.marvel.com/v1/public/characters/${idComic}/comics?ts=${timeStamp}&apikey=${apikey}&hash=${md5}&limit=100`,
+    block: blockComicRequest,
   });
 
   const characterData: any = characterFetchData;
-  const searchFailData: any = searchFetchFailData;
+  const selectedCharacterInfo: any = selectedCharacterFetchData;
   const comicData: any = comicFetchData;
 
   useEffect(() => {
-    if (characterData == null) return;
-    if (characterData?.data?.results?.length == 0) {
-      setBlockRequestByCaractere(false);
-      setCharacterImage("");
-      setCleanList(false);
-      setOffSet(0);
-    }
-    if (characterData?.data?.results[0]) {
+    if (selectedCharacterInfo == null) return;
+    if (selectedCharacterInfo?.data?.results[0]) {
       setToggle(false);
+      setBlockSelectedCharacter(true);
       setCharacterImage(
-        characterData?.data?.results[0]?.thumbnail?.path +
-          `.${characterData?.data?.results[0]?.thumbnail?.extension}`
+        selectedCharacterInfo?.data?.results[0]?.thumbnail?.path +
+          `.${selectedCharacterInfo?.data?.results[0]?.thumbnail?.extension}`
       );
     }
+  }, [selectedCharacterInfo]);
+
+  useEffect(() => {
+    if (characterData) setBlockRequest(true);
   }, [characterData]);
 
   useEffect(() => {
-    if (characterData) {
-      setBlockRequest(true);
-      setIdComic(characterData?.data?.results[0]?.id);
-      setBlockComicRequest(false);
-    }
-  }, [characterData]);
+    if (comicData) setBlockComicRequest(true);
+  }, [comicData]);
 
   useEffect(() => {
-    if (searchFailData) setBlockRequestByCaractere(true);
-  }, [searchFailData]);
+    if (idComic) setBlockComicRequest(false);
+  }, [idComic]);
 
   useEffect(() => {
-    if (requestError || failDataError) setError(true);
-  }, [requestError, failDataError]);
-
-  useEffect(() => {
-    if (search) {
-      setBlockRequestByCaractere(false);
-      setCleanList(true);
-      setToggle(true);
-    }
+    if (search) setBlockRequest(false);
   }, [search]);
 
   useEffect(() => {
-    if (offSet || offSet === 0) {
-      setBlockRequestByCaractere(false);
-      setCleanList(false);
-    }
+    if (selectedCharactere) setBlockSelectedCharacter(false);
+  }, [selectedCharactere]);
+
+  useEffect(() => {
+    if (offSet || offSet === 0) setBlockRequest(false);
   }, [offSet]);
 
   useEffect(() => {
     const loading =
       (requestInitiated && !requestFinished) ||
-      (requestFailDataInitiated && !requestFailDataFinished);
+      (selectedInitiated && !selectedFinished) ||
+      (comicFetchInitiated && !comicFetchFinished);
     if (loading) return setLoading(true);
     if (!loading) {
-      resetFailDataRequest();
       resetRequest();
+      resetSelected();
+      resetComicFetch();
       setLoading(false);
     }
   }, [
     requestInitiated,
     requestFinished,
-    requestFailDataInitiated,
-    requestFailDataFinished,
+    selectedInitiated,
+    selectedFinished,
+    comicFetchInitiated,
+    comicFetchFinished,
   ]);
 
   return {
-    comicData,
-    setOffSet,
-    cleanList,
-    search,
-    toggle,
-    setSearch,
+    selectedCharacterInfo,
     characterImage,
-    characterData,
+    toggle,
     loading,
-    setBlockRequest,
-    searchFailData,
-    error,
+    comicData,
+    characterData,
+    search,
+    setOffSet,
+    setSelectedCharacter,
+    setIdComic,
   };
 };
 

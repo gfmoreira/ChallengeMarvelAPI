@@ -7,9 +7,7 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  padding: 6rem;
   min-height: 100vh;
 }
 
@@ -205,6 +203,13 @@
       rgb(var(--background-end-rgb)) 40%
     );
     z-index: 1;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .sectionDivision{
+    display: block;
+    width: 600px;
   }
 }
 

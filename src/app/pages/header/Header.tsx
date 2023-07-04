@@ -12,7 +12,7 @@ export default function Header() {
   return (
     <Container>
       <div className="container-box">
-        <div className="ops">
+        <div className="marvel-header">
           <Image
             className="logo-img"
             src={teste || ""}

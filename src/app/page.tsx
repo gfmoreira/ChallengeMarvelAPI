@@ -3,20 +3,31 @@ import { useState } from "react";
 import { SearchContext } from "./contexts/SearchContext";
 import styles from "./page.module.css";
 import Header from "./pages/header/Header";
-import ResultPage from "./pages/resultPage/ResultPage";
-import SearchPage from "./pages/searchPage/SearchPage";
+import LeftSide from "./pages/searchPage/LeftSide";
+import RightSide from "./pages/resultPage/RightSide";
 
 export default function Home() {
   const [search, setSearch] = useState<any>("");
+  const [selectedCharactere, setSelectedCharacter] = useState<any>("");
+  const [idComic, setIdComic] = useState<any>("");
   return (
     <main className={styles.main}>
-      <SearchContext.Provider value={{ search, setSearch }}>
+      <SearchContext.Provider
+        value={{
+          search,
+          setSearch,
+          selectedCharactere,
+          setSelectedCharacter,
+          idComic,
+          setIdComic,
+        }}
+      >
         <section>
           <Header />
         </section>
         <section className={styles.sectionDivision}>
-          <SearchPage />
-          <ResultPage />
+          <LeftSide />
+          <RightSide />
         </section>
       </SearchContext.Provider>
     </main>

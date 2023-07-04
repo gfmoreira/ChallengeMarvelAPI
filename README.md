@@ -54,8 +54,9 @@ ChallengeMarvelAPI/
 
 ---
 
-## Last Results 06/27/2023
+## Last Results 07/03/2023
 
-![alt text](./public/assets/img/final-result.gif)
+![alt text](./public/assets/img/last-results.gif)
+\*\* Needs adjustment in responsiveness
 
 ---
